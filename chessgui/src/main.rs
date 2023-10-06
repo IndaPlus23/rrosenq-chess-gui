@@ -93,18 +93,24 @@ impl MainState {
             }
         }
 
-        /*let piece_colour = match self.game.get_color_at(self.selected.x as usize, self.selected.y as usize).unwrap() {
+        let mut piece_colour = "white";
+
+        if self.game.get_color_at(self.selected.x as usize, self.selected.y as usize).is_some() {
+            piece_colour = match self.game.get_color_at(self.selected.x as usize, self.selected.y as usize).unwrap() {
+                sagakar_chess_lib::Color::Black => "black",
+                sagakar_chess_lib::Color::White => "white",
+            };
+        };
+
+        
+        let active_colour = match self.game.get_player() {
             sagakar_chess_lib::Color::Black => "black",
             sagakar_chess_lib::Color::White => "white",
         };
-        let active_colour = match self.game.player {
-            sagakar_chess_lib::Color::Black => todo!(),
-            sagakar_chess_lib::Color::White => todo!(),
-        };*/
 
         if self.is_select {
             if self.game.get_possible_moves(&coordinates_to_string(self.selected.x as usize, self.selected.y as usize)).is_some() {
-                if true {
+                if piece_colour == active_colour {
                     for g in self.game.get_possible_moves(&coordinates_to_string(self.selected.x as usize, self.selected.y as usize)).unwrap() {
                         canvas.draw(
                         &graphics::Mesh::new_rectangle(
@@ -194,7 +200,7 @@ fn main() -> GameResult {
         path::PathBuf::from("./resources")
     };
 
-    let cb = ggez::ContextBuilder::new("helloworld", "ggez").add_resource_path(resource_dir).window_mode(WindowMode::default().dimensions(800., 800.)).window_setup(WindowSetup::default().title("slay queen"));
+    let cb = ggez::ContextBuilder::new("helloworld", "ggez").add_resource_path(resource_dir).window_mode(WindowMode::default().dimensions(1600., 1600.)).window_setup(WindowSetup::default().title("slay queen"));
     let (mut ctx, event_loop) = cb.build()?;
 
     let state = MainState::new(&mut ctx)?;

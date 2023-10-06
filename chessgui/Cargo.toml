@@ -7,4 +7,4 @@ edition = "2021"
 
 [dependencies]
 ggez = "0.9.3"
-sagakar-chess-lib = { git = "https://github.com/IndaPlus23/sagakar-chess-lib.git" }
+sagakar_chess_lib = { git = "https://github.com/IndaPlus23/sagakar-chess-lib.git" }
